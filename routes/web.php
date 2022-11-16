@@ -20,20 +20,26 @@ Route::get('/', function () {
 });
 
 Route::get('contractors', function () {
-    $contractors = Contractor::all();
+    $contractors = Contractor::orderBy('name');
    
     if(request('search')) {
-        $contractors->where('companyName','like','%'.request('search').'%');
+        $contractors->where('name','like','%'.request('searchContractor').'%');
     }
 
     return view('contractors', [
-        'contractors' => $contractors
+        'contractors' => $contractors->get()
     ]);
 });
 
 Route::get('products', function () {
+    $products = Product::orderBy('name');
+
+    if(request('searchProduct')) {
+        $products->where('name','like','%'.request('searchProduct').'%');
+    }
+
     return view('products', [
-        'products' => Product::all()
+        'products' => $products->get()
     ]);
 });
 

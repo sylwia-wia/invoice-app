@@ -4,6 +4,12 @@
         <h1>Produkty/Usługi</h1>
     </div>
 
+    <div class="float-end mb-4">
+        <form method="GET" action="#">
+            <input type="text" name="searchProduct" placeholder="Znajdź produkt" class="form-control"/>
+        </form>
+    </div>
+
     <table class="table mt-4">
         <thead>
         <tr>
