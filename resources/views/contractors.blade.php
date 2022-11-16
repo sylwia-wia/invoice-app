@@ -3,7 +3,7 @@
     {{-- class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2" --}}
     <div class="float-end mb-4">
         <form method="GET" action="#">
-            <input type="text" name="searchContractor" placeholder="Znajdź kontrahenta" class="form-control"/>
+            <input type="text" name="searchContractor" placeholder="Znajdź kontrahenta" class="form-control" value="{{ request('searchContractor') }}" />
         </form>
     </div>
 

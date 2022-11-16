@@ -6,7 +6,7 @@
 
     <div class="float-end mb-4">
         <form method="GET" action="#">
-            <input type="text" name="searchProduct" placeholder="Znajdź produkt" class="form-control"/>
+            <input type="text" name="searchProduct" placeholder="Znajdź produkt" class="form-control" value="{{ request('searchProduct') }}" />
         </form>
     </div>
 

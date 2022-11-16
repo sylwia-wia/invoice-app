@@ -22,8 +22,11 @@ Route::get('/', function () {
 Route::get('contractors', function () {
     $contractors = Contractor::orderBy('name');
    
-    if(request('search')) {
-        $contractors->where('name','like','%'.request('searchContractor').'%');
+    if(request('searchContractor')) {
+        $contractors
+            ->where('name', 'like', '%' . request('searchContractor') . '%')
+            ->orWhere('nip', 'like', '%' . request('searchContractor') . '%');
+            
     }
 
     return view('contractors', [
@@ -35,7 +38,9 @@ Route::get('products', function () {
     $products = Product::orderBy('name');
 
     if(request('searchProduct')) {
-        $products->where('name','like','%'.request('searchProduct').'%');
+        $products
+            ->where('name','like','%'.request('searchProduct').'%')
+            ->orWhere('tax','like','%'.request('searchProduct').'%');
     }
 
     return view('products', [
