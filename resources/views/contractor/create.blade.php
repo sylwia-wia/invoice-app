@@ -1,23 +1,23 @@
 <x-layout>
-    <h1>Edytuj dane kontrahenta</h1>
+    <h1>Dodaj nowego kontrahenta</h1>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" value="{{ $contractor->name }}">
+        <input type="text" class="form-control" id="floatingInput">
         <label for="floatingInput">Nazwa</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="number" class="form-control" id="floatingInput" value="{{ $contractor->nip }}" >
+        <input type="number" class="form-control" id="floatingInput"  >
         <label for="floatingInput">NIP</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" value="{{ $contractor->street }}">
+        <input type="text" class="form-control" id="floatingInput" >
         <label for="floatingInput">Ulica</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" value="{{ $contractor->locality }}">
+        <input type="text" class="form-control" id="floatingInput" >
         <label for="floatingInput">Miasto</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" value="{{ $contractor->post_code }}">
+        <input type="text" class="form-control" id="floatingInput" >
         <label for="floatingInput">Kod pocztowy</label>
     </div>
 

@@ -2,11 +2,21 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    public function render($request, Exception|Throwable $e)
+    {
+        if($e instanceof ModelNotFoundException)
+        {
+//            echo 'Brak rekordów do wyświetlenia';
+        }
+
+        return parent::render($request, $e);
+    }
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -47,4 +57,6 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+
 }

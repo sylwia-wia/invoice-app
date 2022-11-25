@@ -5,7 +5,7 @@
         <label for="floatingInput">Nazwa</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="number" class="form-control" id="floatingInput" value="{{ $product->tax }}" >
+        <input type="number" class="form-control" id="floatingInput" value="{{ $product->vat }}" >
         <label for="floatingInput">VAT</label>
     </div>
     <div class="form-floating mb-3">
