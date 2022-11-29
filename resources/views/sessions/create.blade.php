@@ -1,25 +1,9 @@
 <x-layout>
     <section class="px-6 py-8 mt-4">
         <main class="w-50 mx-auto mt-10 bg-light border border-gray-200 p-10 rounded-2">
-            <h1 class="text-center ">Rejestracja</h1>
-            <form method="POST" action="/register" class="mt-10 ms-4">
+            <h1 class="text-center">Logowanie</h1>
+            <form method="POST" action="/login" class="mt-10 ms-4">
                 @csrf
-                <div class="mb-3 me-4">
-                    <label for="name" class="form-label">Imię</label>
-                    <input class="form-control"
-                           type="text"
-                           id="name"
-                            name="name"
-                           value="{{ old('name') }}"
-                           required
-                    >
-
-                    @error('name')
-                        <p class="text-danger mt-1" style="font-size: 12px">{{ $message }}</p>
-                    @enderror
-
-                </div>
-
 
                 <div class="mb-3 me-4">
                     <label class="form-label"
@@ -57,7 +41,7 @@
                 <div class="mb-3 me-4">
                     <button type="submit"
                             class="btn btn-dark py-2 px-4">
-                        Zatwierdź
+                        Zaloguj
                     </button>
                 </div>
             </form>
