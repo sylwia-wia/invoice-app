@@ -2,7 +2,7 @@
     <h1>Kontrahenci</h1>
     {{-- class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2" --}}
     <div class="float-start mb-4">
-        <form method="GET" action="contractors/create">
+        <form method="GET" action="{{ route('contractor.create') }}">
             <button class="btn btn-dark">Dodaj nowego kontrahenta</button>
         </form>
     </div>

@@ -27,12 +27,10 @@ Route::get('contractors', [ContractorController::class, 'index']);
 
 Route::get('products', [ProductController::class, 'index']);
 
-Route::get('products/{product:id}', function (Product $product) {
-    return view('product', [
-        'product' => $product
-    ]);
-});
 
+Route::get('contractors/create', [ContractorController::class, 'create'])
+    ->name('contractor.create');
+Route::post('contractors/create', [ContractorController::class, 'store']);
 Route::get('contractors/{contractor:id}', function (Contractor $contractor) {
     return view('contractor', [
         'contractor' => $contractor
@@ -40,11 +38,23 @@ Route::get('contractors/{contractor:id}', function (Contractor $contractor) {
 });
 
 
-Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
+Route::get('products/{product:id}', function (Product $product) {
+    return view('product', [
+        'product' => $product
+    ]);
+});
+
+
+
+
+
+Route::get('register', [RegisterController::class, 'create'])->middleware('guest')
+    ->name('register.create');
 
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
 
-Route::get('login', [SessionController::class, 'create'])->middleware('guest');
+Route::get('login', [SessionController::class, 'create'])->middleware('guest')
+    ->name('login.create');
 Route::post('login', [SessionController::class, 'store'])->middleware('guest');
 
 Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');

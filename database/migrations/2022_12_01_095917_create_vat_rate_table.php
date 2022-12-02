@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product', function (Blueprint $table) {
+        Schema::create('vat_rate', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255)->unique();
-            $table->integer('vat');
-            $table->decimal('price',11,2);
+            $table->integer('rate');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product');
+        Schema::dropIfExists('vat_rate');
     }
 };

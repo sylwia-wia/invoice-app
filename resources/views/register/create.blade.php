@@ -2,7 +2,7 @@
     <section class="px-6 py-8 mt-4">
         <main class="w-50 mx-auto mt-10 bg-light border border-gray-200 p-10 rounded-2">
             <h1 class="text-center ">Rejestracja</h1>
-            <form method="POST" action="/register" class="mt-10 ms-4">
+            <form method="POST" action="{{ route('register.create') }}" class="mt-10 ms-4">
                 @csrf
                 <div class="mb-3 me-4">
                     <label for="name" class="form-label">Imię</label>
