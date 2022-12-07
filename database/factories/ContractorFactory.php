@@ -18,12 +18,14 @@ class ContractorFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->company,
-            'companyName' => $this->faker->unique()->company(),
-            'nip' => $this->faker->unique()->Str::random(10),
+            'name' => $this->faker->company(),
+            'company_name' => $this->faker->unique()->company(),
+            'nip' => $this->faker->buildingNumber(),
             'street' => $this->faker->streetAddress,
-            'town' => $this->faker->address,
+            'locality' => $this->faker->address,
             'post_code' => $this->faker->postcode,
         ];
     }
 }
+
+

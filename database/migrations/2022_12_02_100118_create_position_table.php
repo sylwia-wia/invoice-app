@@ -29,7 +29,7 @@ return new class extends Migration
                     ->constrained('business_document')
                     ->onDelete('cascade');
 
-            $table->foreignId('vat_rate')
+            $table->foreignId('vat_rate_id')
                     ->constrained('vat_rate')
                     ->onDelete('restrict');
 

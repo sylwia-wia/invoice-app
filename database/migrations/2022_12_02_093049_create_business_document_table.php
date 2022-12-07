@@ -26,10 +26,6 @@ return new class extends Migration
                     ->constrained('contractor')
                     ->onDelete('CASCADE');
 
-                $table->foreignId('product_id')
-                    ->constrained('product')
-                    ->onDelete('RESTRICT');
-
                 $table->date('issue_date');
                 $table->date('sale_date');
                 $table->string('number')->unique();

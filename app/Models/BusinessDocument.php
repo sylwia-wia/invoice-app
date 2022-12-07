@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class BusinessDocument extends Model
 {
@@ -15,7 +16,7 @@ class BusinessDocument extends Model
 
     public function documentType(): BelongsTo
     {
-        return $this->belongsTo(DocumentType::class);
+        return $this->belongsTo(DocumentType::class, 'document_type_id');
     }
 
     public function contractor(): BelongsTo
@@ -23,14 +24,14 @@ class BusinessDocument extends Model
         return $this->belongsTo(Contractor::class);
     }
 
-    public function product(): HasMany
+    public function vatRate(): BelongsTo
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(VatRate::class, 'vat_rate_id');
     }
 
-    public function vatRate(): HasMany
+    public function position(): HasOne
     {
-        return $this->hasMany(VatRate::class);
+        return $this->hasOne(DocumentPosition::class);
     }
 
 }

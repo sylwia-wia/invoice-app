@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Contractor extends Model
 {
@@ -20,5 +22,10 @@ class Contractor extends Model
                 $query->where('name', 'like', '%' . request('searchContractor') . '%')
                     ->orWhere('nip', 'like', '%' . request('searchContractor') . '%'))
             );
+    }
+
+    public function businessDocument(): HasMany
+    {
+        return $this->hasMany(BusinessDocument::class, 'contractor_id');
     }
 }

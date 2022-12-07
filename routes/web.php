@@ -26,6 +26,13 @@ Route::get('/', function () {
 Route::get('contractors', [ContractorController::class, 'index']);
 
 Route::get('products', [ProductController::class, 'index']);
+Route::get('products/create', [ProductController::class, 'create'])
+    ->name('product.create');
+Route::post('products/create', [ProductController::class, 'store']);
+Route::get('products/{product:id}/edit', [ProductController::class, 'edit'])
+    ->name('product.edit');
+Route::post('products/{product:id}', [ProductController::class, 'update'])
+    ->name('product.update');
 
 
 Route::get('contractors/create', [ContractorController::class, 'create'])
@@ -36,16 +43,6 @@ Route::get('contractors/{contractor:id}', function (Contractor $contractor) {
         'contractor' => $contractor
     ]);
 });
-
-
-Route::get('products/{product:id}', function (Product $product) {
-    return view('product', [
-        'product' => $product
-    ]);
-});
-
-
-
 
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest')

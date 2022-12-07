@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
+use App\Models\VatRate;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,10 +18,14 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+
         return [
-            'name' => $this->faker->unique()->word,
-            'tax' => $this->faker->numberBetween([0],[23]),
+            'name' => $this->faker->word,
+           'vat_rate_id' => VatRate::factory(),
+            'vat' => $this->faker->unique()->randomDigit(),
             'price' => $this->faker->randomFloat(2),
+
+
         ];
     }
 }

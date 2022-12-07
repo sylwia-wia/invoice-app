@@ -34,11 +34,7 @@ class ContractorController extends Controller
             'post_code' => 'required|max:20'
         ]);
 
-        var_dump($attributes);
-
         Contractor::create($attributes);
-
-
 
         return redirect('/contractors')->with('success', 'Poprawnie dodano nowego  kontrahenta!');
     }

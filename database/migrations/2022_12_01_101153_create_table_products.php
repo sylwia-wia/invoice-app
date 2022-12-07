@@ -22,7 +22,6 @@ return new class extends Migration
                     ->onDelete('RESTRICT');
 
                 $table->string('name', 255)->unique();
-                $table->integer('vat');
                 $table->decimal('price', 11, 2);
                 $table->timestamps();
             });
