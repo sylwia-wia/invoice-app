@@ -8,7 +8,9 @@ use App\Models\VatRate;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Symfony\Component\Console\Input\Input;
 
 class ProductController extends Controller
@@ -55,7 +57,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreProductRequest $request, $id)
     {
         $product = Product::findOrFail($id);
 
@@ -76,6 +78,18 @@ class ProductController extends Controller
             'vat_rate_id' => 'required|integer|exists:vat_rate,id',
             'price' => 'required|numeric|gt:0|lt:99999999'
         ];
+    }
+
+    /**
+     * @param $id
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+        return redirect('/products')->with('succcess', 'Poprawnie usunięto produkt!');
     }
 }
 

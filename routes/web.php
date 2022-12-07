@@ -33,6 +33,9 @@ Route::get('products/{product:id}/edit', [ProductController::class, 'edit'])
     ->name('product.edit');
 Route::post('products/{product:id}', [ProductController::class, 'update'])
     ->name('product.update');
+Route::get('products/{product:id}/delete', [ProductController::class, 'destroy'])
+    ->name('product.delete');
+
 
 
 Route::get('contractors/create', [ContractorController::class, 'create'])

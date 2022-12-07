@@ -29,4 +29,5 @@ class StoreProductRequest extends FormRequest
             'price' => 'required|numeric|gt:0|lt:99999999'
         ];
     }
+
 }
