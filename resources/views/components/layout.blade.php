@@ -29,7 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarMainMenu">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a href="invoices" class="nav-link">Faktury</a>
+                        <a href="{{ route('business_documents.index') }}" class="nav-link">Faktury</a>
                     </li>
                     <li class="nav-item">
                         <a href="/contractors" class="nav-link">Kontrahenci</a>
@@ -60,8 +60,6 @@
                         </li>
                     </ul>
                 @endauth
-
-
             </div>
             </div>
         </div>

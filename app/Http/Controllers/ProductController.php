@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use JetBrains\PhpStorm\NoReturn;
 use Symfony\Component\Console\Input\Input;
 
 class ProductController extends Controller
@@ -44,7 +45,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @return Application|Factory|View
+     * @return View
      */
     public function edit($id)
     {
@@ -57,7 +58,14 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(StoreProductRequest $request, $id)
+    /**
+     * @param StoreProductRequest $request
+     * @param $id
+     * @return RedirectResponse|Redirector
+     * @throws \Exception
+     */
+
+    public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
 

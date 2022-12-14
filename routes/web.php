@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BusinessDocumentController;
 use App\Http\Controllers\ContractorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
@@ -23,8 +24,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('contractors', [ContractorController::class, 'index']);
-
 Route::get('products', [ProductController::class, 'index']);
 Route::get('products/create', [ProductController::class, 'create'])
     ->name('product.create');
@@ -33,11 +32,11 @@ Route::get('products/{product:id}/edit', [ProductController::class, 'edit'])
     ->name('product.edit');
 Route::post('products/{product:id}', [ProductController::class, 'update'])
     ->name('product.update');
-Route::get('products/{product:id}/delete', [ProductController::class, 'destroy'])
-    ->name('product.delete');
+Route::post('products/{product:id}/destroy', [ProductController::class, 'destroy'])
+    ->name('product.destroy');
 
 
-
+Route::get('contractors', [ContractorController::class, 'index']);
 Route::get('contractors/create', [ContractorController::class, 'create'])
     ->name('contractor.create');
 Route::post('contractors/create', [ContractorController::class, 'store']);
@@ -46,7 +45,26 @@ Route::get('contractors/{contractor:id}', function (Contractor $contractor) {
         'contractor' => $contractor
     ]);
 });
+Route::get('contractors/{contractor:id}/edit', [ContractorController::class, 'edit'])
+    ->name('contractor.edit');
+Route::post('contractors/{contractor:id}', [ContractorController::class, 'update'])
+    ->name('contractor.update');
+Route::post('contractors/{contractor:id}/destroy', [ContractorController::class, 'destroy'])
+    ->name('contractor.destroy');
 
+
+Route::get('business_documents', [BusinessDocumentController::class, 'index'])
+    ->name('business_documents.index');
+Route::get('business_documents/create', [BusinessDocumentController::class, 'create'])
+    ->name('business_document.create');
+Route::post('business_document/create', [BusinessDocumentController::class, 'store'])
+    ->name('business_document.store');
+Route::get('business_document/{business_document:id}/edit', [BusinessDocumentController::class, 'edit'])
+    ->name('business_document.edit');
+Route::post('business_document/{business_document:id}', [BusinessDocumentController::class, 'update'])
+    ->name('business_document.update');
+Route::post('business_document/{business_document:id}/destroy', [BusinessDocumentController::class, 'destroy'])
+    ->name('business_document.destroy');
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest')
     ->name('register.create');

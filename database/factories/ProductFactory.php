@@ -24,8 +24,6 @@ class ProductFactory extends Factory
            'vat_rate_id' => VatRate::factory(),
             'vat' => $this->faker->unique()->randomDigit(),
             'price' => $this->faker->randomFloat(2),
-
-
         ];
     }
 }
