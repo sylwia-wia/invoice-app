@@ -34,10 +34,6 @@ return new class extends Migration
                 $table->integer('vat');
                 $table->decimal('gross_value', 15, 2);
 
-                $table->foreignId('vat_rate_id')
-                    ->constrained('vat_rate')
-                    ->onDelete('RESTRICT');
-
                 $table->timestamps();
             });
         }

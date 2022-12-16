@@ -18,6 +18,31 @@ return new class extends Migration
             $table->integer('rate');
             $table->timestamps();
         });
+
+        DB::table('vat_rate')->insert(
+            [
+                [
+                    'id' => 1,
+                    'rate' => 0,
+                    'created_at' => '2022-12-14 10:00:00'
+                ],
+                [
+                    'id' => 2,
+                    'rate' => 5,
+                    'created_at' => '2022-12-14 10:00:00'
+                ],
+                [
+                    'id' => 3,
+                    'rate' => 8,
+                    'created_at' => '2022-12-14 10:00:00'
+                ],
+                [
+                    'id' => 4,
+                    'rate' => 23,
+                    'created_at' => '2022-12-14 10:00:00'
+                ],
+            ]
+        );
     }
 
     /**

@@ -56,15 +56,15 @@ Route::post('contractors/{contractor:id}/destroy', [ContractorController::class,
 Route::get('business_documents', [BusinessDocumentController::class, 'index'])
     ->name('business_documents.index');
 Route::get('business_documents/create', [BusinessDocumentController::class, 'create'])
-    ->name('business_document.create');
-Route::post('business_document/create', [BusinessDocumentController::class, 'store'])
-    ->name('business_document.store');
-Route::get('business_document/{business_document:id}/edit', [BusinessDocumentController::class, 'edit'])
-    ->name('business_document.edit');
-Route::post('business_document/{business_document:id}', [BusinessDocumentController::class, 'update'])
-    ->name('business_document.update');
-Route::post('business_document/{business_document:id}/destroy', [BusinessDocumentController::class, 'destroy'])
-    ->name('business_document.destroy');
+    ->name('business_documents.create');
+Route::post('business_documents/create', [BusinessDocumentController::class, 'store'])
+    ->name('business_documents.create');
+Route::get('business_documents/{business_document:id}/edit', [BusinessDocumentController::class, 'edit'])
+    ->name('business_documents.edit');
+Route::post('business_documents/{business_document:id}', [BusinessDocumentController::class, 'update'])
+    ->name('business_documents.update');
+Route::post('business_documents/{business_document:id}/destroy', [BusinessDocumentController::class, 'destroy'])
+    ->name('business_documents.destroy');
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest')
     ->name('register.create');

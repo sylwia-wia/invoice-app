@@ -21,5 +21,5 @@
         <label for="floatingInput">Kod pocztowy</label>
     </div>
 
-    <button class="btn btn-outline-primary float-end">Zapisz</button>
+    <x-form.button>Zapisz</x-form.button>
 </x-layout>

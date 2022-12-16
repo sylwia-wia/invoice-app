@@ -1,13 +1,5 @@
 <x-layout>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <x-form.error />
 
     <form method="POST" action="{{ route('contractor.update', [$contractor->id]) }}" class="mt-10 ms-4">
         @csrf
@@ -37,6 +29,6 @@
             <label for="floatingInput">Kod pocztowy</label>
         </div>
 
-        <button type="submit" class="btn btn-outline-primary float-end">Zapisz</button>
+        <x-form.button>Zapisz</x-form.button>
     </form>
 </x-layout>

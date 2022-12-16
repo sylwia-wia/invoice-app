@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Validation\Rule;
 use JetBrains\PhpStorm\NoReturn;
 use Symfony\Component\Console\Input\Input;
 

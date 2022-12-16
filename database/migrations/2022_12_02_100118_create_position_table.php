@@ -13,17 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('position', function (Blueprint $table) {
+        Schema::create('business_document_position', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('product_id')
                     ->constrained('product')
                     ->onDelete('cascade');
 
-            $table->string('unit');
+            $table->foreignId('unit_id')
+                    ->constrained('unit');
+
             $table->decimal('net_price',11,2);
-            $table->integer('vat');
-            $table->decimal('gross_price',11,2);
+            $table->integer('vat_value');
+            $table->decimal('gross_value',11,2);
+            $table->decimal('quantity', 13, 4);
 
             $table->foreignId('business_document_id')
                     ->constrained('business_document')
@@ -44,6 +47,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('position');
+        Schema::dropIfExists('business_document_position');
     }
 };

@@ -1,13 +1,5 @@
 <x-layout>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <x-form.error />
 
     <form method="POST" action="{{ route('product.update', [$product->id]) }}" class="mt-10 ms-4">
         @csrf
@@ -31,6 +23,6 @@
             <label for="floatingInput">Cena</label>
         </div>
 
-        <button class="btn btn-outline-primary float-end">Zapisz</button>
+        <x-form.button>Zapisz</x-form.button>
     </form>
 </x-layout>
