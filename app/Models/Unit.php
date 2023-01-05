@@ -36,4 +36,9 @@ class Unit extends Model
     {
         return $this->hasMany(DocumentPosition::class);
     }
+
+    public function product(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
 }

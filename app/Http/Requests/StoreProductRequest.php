@@ -27,6 +27,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => 'required|max:100|unique:product,name',
+            'unit_id' => 'required|max:30|exists:unit,id',
             'vat_rate_id' => 'required|integer|exists:vat_rate,id',
             'price' => 'required|numeric|gt:0|lt:99999999'
         ];

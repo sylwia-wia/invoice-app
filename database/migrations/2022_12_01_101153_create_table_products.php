@@ -21,6 +21,10 @@ return new class extends Migration
                     ->constrained('vat_rate')
                     ->onDelete('RESTRICT');
 
+                $table->foreignId('unit_id')
+                    ->constrained('unit')
+                    ->onDelete('SET NULL');
+
                 $table->string('name', 255)->unique();
                 $table->decimal('price', 11, 2);
                 $table->timestamps();

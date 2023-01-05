@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\Unit;
 use App\Models\VatRate;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,6 +22,7 @@ class ProductFactory extends Factory
 
         return [
             'name' => $this->faker->word,
+            'unit_is' => Unit::factory(),
            'vat_rate_id' => VatRate::factory(),
             'vat' => $this->faker->unique()->randomDigit(),
             'price' => $this->faker->randomFloat(2),

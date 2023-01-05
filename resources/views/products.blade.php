@@ -22,6 +22,7 @@
             <th scope="col">#</th>
             <th scope="col">Id</th>
             <th scope="col">Nazwa</th>
+            <th scope="col">JM</th>
             <th scope="col">VAT</th>
             <th scope="col">Cena</th>
             <th scope="col">Akcja</th>
@@ -37,6 +38,7 @@
                 <th scope="row">{{ $index }}</th>
                 <td>{{ $product->id }}</td>
                 <td>{{ $product->name }}</td>
+                <td>{{ $product->unit->name }}</td>
                 <td>{{ $product->vatRate->rate }}%</td>
                 <td>{{ $product->price }}</td>
                 <td class="row g-2">

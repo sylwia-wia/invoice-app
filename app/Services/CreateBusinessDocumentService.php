@@ -10,19 +10,25 @@ class CreateBusinessDocumentService
 {
     public function create(array $attributes): BusinessDocument
     {
-        $position = new DocumentPosition();
-        $position->fill($attributes['position']);
+        /** @var DocumentPosition[] $positions */
+        $positions = [];
+
+        foreach ($attributes['position'] as $positionData) {
+            $position = new DocumentPosition();
+            $position->fill($positionData);
+            $positions[] = $position;
+        }
 
         $businessDocument = new BusinessDocument();
         $businessDocument->fill($attributes['document']);
 
-        $this->calculateValues($businessDocument, [$position]);
+        $this->calculateValues($businessDocument, $positions);
 
         \DB::beginTransaction();
 
         try {
             $businessDocument->save();
-            $businessDocument->position()->save($position);
+            $businessDocument->position()->saveMany($positions);
         } catch (\Exception) {
             \DB::rollBack();
 
@@ -45,7 +51,7 @@ class CreateBusinessDocumentService
 
             $document->net_value += $positionNetValue;
             $document->vat += $positionVatValue;
-            $document->gross_value = $positionNetValue + $positionVatValue;
+            $document->gross_value += $positionNetValue + $positionVatValue;
         }
     }
 

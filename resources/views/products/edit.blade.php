@@ -9,6 +9,16 @@
             <label for="floatingInput">Nazwa</label>
         </div>
         <div class="form-floating mb-3">
+            <select class="form-control" id="selectUnit" name="unit_id" required focus >
+                <option value="" disabled @if (old('unit_id') == null) selected @endif>Proszę o wybranie jednostki miary</option>
+
+                @foreach($units as $unit)
+                    <option value="{{$unit->id}}" @if ($product->unit_id == $unit->id) selected @endif>{{ $unit->name }}</option>
+                @endforeach
+            </select>
+            <label for="floatingInput">Jednostka Miary</label>
+        </div>
+        <div class="form-floating mb-3">
             <select class="form-control" id="selectVatRate" name="vat_rate_id" required focus >
                 <option value="" disabled @if (old('vat_rate_id') == null) selected @endif>Proszę o wybranie stawki VAT</option>
 

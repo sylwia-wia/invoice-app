@@ -34,6 +34,8 @@ Route::post('products/{product:id}', [ProductController::class, 'update'])
     ->name('product.update');
 Route::post('products/{product:id}/destroy', [ProductController::class, 'destroy'])
     ->name('product.destroy');
+Route::get('products/{product:id}/json', [ProductController::class, 'detailJson'])
+    ->name('product.detail.json');
 
 
 Route::get('contractors', [ContractorController::class, 'index']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
+use App\Models\Unit;
 use App\Models\VatRate;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -29,9 +30,11 @@ class ProductController extends Controller
     public function create()
     {
         $vatRates = VatRate::all();
+        $units = Unit::all();
 
         return view('products.create', [
-            'vatRates' => $vatRates
+            'vatRates' => $vatRates,
+            'units' => $units
         ]);
     }
 
@@ -52,11 +55,19 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $vatRates = VatRate::all();
+        $units = Unit::all();
 
         return view('products/edit', [
             'product' => $product,
-            'vatRates' => $vatRates
+            'vatRates' => $vatRates,
+            'units' => $units
         ]);
+    }
+
+    public function detailJson($id)
+    {
+        $product = Product::findOrFail($id);
+        return response()->json($product);
     }
 
     /**
@@ -65,7 +76,6 @@ class ProductController extends Controller
      * @return RedirectResponse|Redirector
      * @throws \Exception
      */
-
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -84,6 +94,7 @@ class ProductController extends Controller
     {
         return [
             'name' => 'required|max:100|unique:product,name',
+            'unit_id' => 'required|integer|exists:unit,id',
             'vat_rate_id' => 'required|integer|exists:vat_rate,id',
             'price' => 'required|numeric|gt:0|lt:99999999'
         ];

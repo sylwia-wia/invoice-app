@@ -14,7 +14,6 @@ class ContractorController extends Controller
 {
     public function index(): View
     {
-
         return view('contractors', [
             'contractors' => Contractor::orderBy('name')->filter(
                 request(['searchContractor'])

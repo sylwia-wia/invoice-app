@@ -55,6 +55,11 @@ class Product extends Model
         return $this->belongsTo(VatRate::class, 'vat_rate_id', 'id');
     }
 
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
     public function position(): HasMany
     {
         return $this->hasMany(DocumentPosition::class);

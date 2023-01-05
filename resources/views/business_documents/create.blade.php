@@ -59,67 +59,17 @@
                 <th>Wartość VAT</th>
                 <th>Wartość brutto</th>
             </tr>
-            <tr>
-                <td>
-                    <div class="form-floating mb-3">
-                        <select class="form-control" name="position[product_id]" required>
-                            <option value="" disabled @if (old('product_id') == null) selected @endif>Proszę wybrać produkt</option>
 
-                            @foreach($products as $product)
-                                <option value="{{$product->id}}" @if (old('product_id') == $product->id) selected @endif>{{ $product->name }}</option>
-                            @endforeach
-                        </select>
-                        <label >Produkt</label>
-                    </div>
-                </td>
+            @for ($i = 0; $i <= 2; $i++)
+                @include('business_documents/_create_position', ['index'  => $i])
+            @endfor
 
-                <td>
-                    <input name="position[net_price]" type="text" class="form-control" value="{{ old('net_price') }}">
-                </td>
-
-                <td>
-                    <input name="position[quantity]" type="text" class="form-control" value="{{ old('quantity') }}">
-                </td>
-
-                <td>
-                    <div class="form-floating mb-3">
-                        <select class="form-control" name="position[unit_id]" required focus >
-                            <option value="" disabled @if (old('unit_id') == null) selected @endif>Proszę wybrać jednostkę miary</option>
-
-                            @foreach($units as $unit)
-                                <option value="{{$unit->id}}" @if (old('unit_id') == $unit->id) selected @endif>{{ $unit->name }}</option>
-                            @endforeach
-                        </select>
-                        <label>JM</label>
-                    </div>
-                </td>
-
-                <td>
-                    <div class="form-floating mb-3">
-                        <select class="form-control" name="position[vat_rate_id]" required focus >
-                            <option value="" disabled @if (old('vat_rate_id') == null) selected @endif>Proszę wybrać stawkę VAt</option>
-
-                            @foreach($vatRates as $vatRate)
-                                <option value="{{$vatRate->id}}" @if (old('vat_rate_id') == $vatRate->id) selected @endif>{{ $vatRate->rate }}%</option>
-                            @endforeach
-                        </select>
-                        <label>Stawka VAT</label>
-                    </div>
-                </td>
-
-                <td>
-                    <input name="position[vat_value]" type="text" class="form-control" value="{{ old('vat_value') }}">
-                </td>
-
-                <td>
-                    <input name="position[gross_value]" type="text" class="form-control" value="{{ old('gross_value') }}">
-                </td>
-
-            </tr>
         </table>
-
-
-
+        <x-form.button>Dodaj nową pozycję</x-form.button>
         <x-form.button>Zapisz</x-form.button>
     </form>
 </x-layout>
+
+<script>
+    const VAT_RATES = '@json($vatRates)';
+</script>
