@@ -13,8 +13,13 @@ import Alpine from "alpinejs";
 //
 // productSelect.onchange = getDataFromApi;
 
-
 function documentData() {
+    return {
+        positions: 1,
+    }
+}
+
+function documentPositionData() {
     return {
         //component state
         price: '',
@@ -40,14 +45,19 @@ function documentData() {
             }
 
             const vatRateValue = JSON.parse(VAT_RATES).filter(vatRate => vatRate.id === parseInt(this.vatRate))[0].rate;
-            const netValue= this.price * this.quantity;
-            this.vatValue = (netValue * vatRateValue) / 100;
-            this.grossValue = netValue + this.vatValue;
+            const netValue= parseFloat(this.price) * parseFloat(this.quantity);
+
+            this.vatValue = (netValue * (vatRateValue) / 100);
+            this.vatValue = parseFloat(this.vatValue).toFixed(2);
+            console.log(typeof this.vatValue);
+            this.grossValue = netValue + parseFloat(this.vatValue);
         }
     }
 }
 
 
 Alpine.data('documentData', documentData);
+
+Alpine.data('documentPositionData', documentPositionData);
 
 Alpine.start()

@@ -60,7 +60,7 @@ class Product extends Model
         return $this->belongsTo(Unit::class);
     }
 
-    public function position(): HasMany
+    public function positions(): HasMany
     {
         return $this->hasMany(DocumentPosition::class);
     }

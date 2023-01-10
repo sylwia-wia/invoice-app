@@ -47,7 +47,7 @@ class VatRate extends Model
         return $this->hasMany(BusinessDocument::class);
     }
 
-    public function position(): HasMany
+    public function positions(): HasMany
     {
         return $this->hasMany(DocumentPosition::class);
     }

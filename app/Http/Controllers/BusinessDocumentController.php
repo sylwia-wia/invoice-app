@@ -4,17 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\CreateBusinessDocumentException;
 use App\Http\Requests\BusinessDocumentRequest;
-use App\Models\BusinessDocument;
-use App\Models\Contractor;
-use App\Models\DocumentPosition;
-use App\Models\DocumentType;
-use App\Models\Product;
-use App\Models\Unit;
-use App\Models\VatRate;
+use App\Models\{BusinessDocument, Contractor, DocumentPosition, DocumentType, Product, Unit, VatRate};
 use App\Services\CreateBusinessDocumentService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
-
 
 class BusinessDocumentController extends Controller
 {
@@ -43,14 +37,14 @@ class BusinessDocumentController extends Controller
                 'contractors' => $contractors,
                 'products' => $products,
                 'vatRates' => $vatRates,
-                'units' => $units
-
+                'units' => $units,
             ]);
     }
 
     public function store(BusinessDocumentRequest $request, CreateBusinessDocumentService $service): RedirectResponse
     {
         $attributes = $request->validated();
+
 
         try {
             $service->create($attributes);
@@ -59,6 +53,26 @@ class BusinessDocumentController extends Controller
         }
 
         return redirect('/business_documents')->with('success', 'Poprawnie dodano dokument!');
+    }
+
+    public function show($id): View
+    {
+        $businessDocument = BusinessDocument::with('contractor', 'documentType')->findOrFail($id);
+
+//        foreach ($businessDocument->position as $position) {
+//            echo $position->product->name . '<br />';
+//        }
+//        exit;
+//
+//        dd($businessDocument->position[0]->product->name);
+//
+//
+//        echo '<pre>';
+//        var_dump();
+//        exit;
+        return view('business_documents.show', [
+            'business_document' => $businessDocument,
+        ]);
     }
 
     public function destroy()

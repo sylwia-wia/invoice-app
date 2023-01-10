@@ -61,6 +61,8 @@ Route::get('business_documents/create', [BusinessDocumentController::class, 'cre
     ->name('business_documents.create');
 Route::post('business_documents/create', [BusinessDocumentController::class, 'store'])
     ->name('business_documents.create');
+Route::get('business_documents/{business_document:id}/show', [BusinessDocumentController::class, 'show'])
+    ->name('business_documents.show');
 Route::get('business_documents/{business_document:id}/edit', [BusinessDocumentController::class, 'edit'])
     ->name('business_documents.edit');
 Route::post('business_documents/{business_document:id}', [BusinessDocumentController::class, 'update'])

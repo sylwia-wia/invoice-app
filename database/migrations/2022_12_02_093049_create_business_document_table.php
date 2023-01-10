@@ -28,10 +28,10 @@ return new class extends Migration
 
                 $table->date('issue_date');
                 $table->date('sale_date');
-                $table->string('number')->unique();
+                $table->string('number');
                 $table->date('payment_date');
                 $table->decimal('net_value', 15, 2);
-                $table->integer('vat');
+                $table->decimal('vat_value', 11, 2);
                 $table->decimal('gross_value', 15, 2);
 
                 $table->timestamps();
@@ -46,6 +46,9 @@ return new class extends Migration
      */
     public function down()
     {
+//        Schema::table('business_document', function (Blueprint $table) {
+//            $table->dropForeign('document_type_id, contractor_id');
+//        });
         Schema::dropIfExists('business_document');
     }
 };

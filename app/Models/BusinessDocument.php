@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Contractor $contractor
  * @property-read \App\Models\DocumentType|null $documentType
- * @property-read \App\Models\DocumentPosition|null $position
+ * @property-read \App\Models\DocumentPosition[]|null $position
  * @property-read \App\Models\VatRate|null $vatRate
  * @method static Builder|BusinessDocument newModelQuery()
  * @method static Builder|BusinessDocument newQuery()
@@ -67,8 +67,8 @@ class BusinessDocument extends Model
         return $this->belongsTo(VatRate::class, 'vat_rate_id');
     }
 
-    public function position(): HasOne
+    public function positions(): HasMany
     {
-        return $this->hasOne(DocumentPosition::class);
+        return $this->hasMany(DocumentPosition::class);
     }
 }

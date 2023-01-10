@@ -20,9 +20,9 @@
             <th scope="col">Typ dokumentu</th>
             <th scope="col">Numer</th>
             <th scope="col">Kontrahent</th>
-            <th scope="col">Kwota netto</th>
-            <th scope="col">VAT</th>
-            <th scope="col">Kwota btutto</th>
+            <th scope="col">Wartość netto</th>
+            <th scope="col">Wartość VAT</th>
+            <th scope="col">Wartość brutto</th>
             <th scope="col">Akcja</th>
         </tr>
         </thead>
@@ -38,10 +38,10 @@
                 <td>{{ $business_document->number }}</td>
                 <td>{{ $business_document->contractor->name }}</td>
                 <td>{{ $business_document->net_value }}</td>
-                <td>{{ $business_document->vat }}</td>
+                <td>{{ $business_document->vat_value }}</td>
                 <td>{{ $business_document->gross_value }}</td>
                 <td class="row g-2">
-                    <x-form.edit-button action="{{ route('business_documents.edit', [$business_document->id]) }}"/>
+                    <x-form.edit-button action="{{ route('business_documents.show', [$business_document->id]) }}"/>
                     <x-form.delete-button action="{{ route('business_documents.destroy', [$business_document->id]) }}" />
                 </td>
             </tr>

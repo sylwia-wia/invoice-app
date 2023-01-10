@@ -19,6 +19,16 @@ return new class extends Migration
             $table->string('full_name');
             $table->timestamps();
         });
+
+        DB::table('unit')->insert([
+            [
+                'name' => 'kg',
+                'full_name' => 'kilogram',
+                'created_at' => '2022-12-14 10:00:00'
+            ]
+        ]);
+
+
     }
 
     /**

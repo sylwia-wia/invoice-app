@@ -19,7 +19,7 @@ return new class extends Migration
 
                 $table->foreignId('vat_rate_id')
                     ->constrained('vat_rate')
-                    ->onDelete('RESTRICT');
+                    ->onDelete('CASCADE');
 
                 $table->foreignId('unit_id')
                     ->constrained('unit')
@@ -39,6 +39,9 @@ return new class extends Migration
      */
     public function down()
     {
+//        Schema::table('product', function (Blueprint $table) {
+//            $table->dropForeign('vat_rate_id, unit_id');
+//        });
         Schema::dropIfExists('product');
     }
 };
