@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BusinessDocumentController;
 use App\Http\Controllers\ContractorController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
@@ -42,11 +43,6 @@ Route::get('contractors', [ContractorController::class, 'index']);
 Route::get('contractors/create', [ContractorController::class, 'create'])
     ->name('contractor.create');
 Route::post('contractors/create', [ContractorController::class, 'store']);
-Route::get('contractors/{contractor:id}', function (Contractor $contractor) {
-    return view('contractor', [
-        'contractor' => $contractor
-    ]);
-});
 Route::get('contractors/{contractor:id}/edit', [ContractorController::class, 'edit'])
     ->name('contractor.edit');
 Route::post('contractors/{contractor:id}', [ContractorController::class, 'update'])
@@ -80,3 +76,6 @@ Route::get('login', [SessionController::class, 'create'])->middleware('guest')
 Route::post('login', [SessionController::class, 'store'])->middleware('guest');
 
 Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
+
+Route::get('business_documents/generate-pdf/{business_document:id}', [PDFController::class, 'generatePDF'])
+    ->name('business_document.generatePDF');

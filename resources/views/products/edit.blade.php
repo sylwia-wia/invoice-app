@@ -29,7 +29,7 @@
             <label for="floatingInput">VAT</label>
         </div>
         <div class="form-floating mb-3">
-            <input name="price" type="number" class="form-control" id="floatingInput" value="{{  $product->price }}">
+            <input name="price" type="number" step="0.01" class="form-control" id="floatingInput" value="{{  $product->price }}">
             <label for="floatingInput">Cena</label>
         </div>
 

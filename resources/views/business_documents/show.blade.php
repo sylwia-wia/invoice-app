@@ -33,10 +33,6 @@
             <td>{{ $business_document->payment_date }}</td>
         </tr>
 
-        <tr>
-            <th scope="col">Data wydania</th>
-            <td>{{ $business_document->issue_date }}</td>
-        </tr>
 
         <tr class="mt-6">
             <th class="table-secondary">
@@ -82,6 +78,18 @@
             <td>{{ $business_document->gross_value }}</td>
         </tr>
     </table>
+
+    <a href="{{ route('business_documents.edit', [$business_document->id]) }}" class="col-auto text-decoration-none" >
+        <button class="btn btn-primary">
+            Edytuj
+        </button>
+    </a>
+
+    <a href="{{ route('business_document.generatePDF', [$business_document->id]) }}" class="col-auto text-decoration-none" >
+        <button class="btn btn-primary">
+            Eksportuj do PDF
+        </button>
+    </a>
 
 </x-layout>
 

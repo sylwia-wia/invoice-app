@@ -41,7 +41,7 @@
                 <td>{{ $business_document->vat_value }}</td>
                 <td>{{ $business_document->gross_value }}</td>
                 <td class="row g-2">
-                    <x-form.edit-button action="{{ route('business_documents.show', [$business_document->id]) }}"/>
+                    <x-form.show-button action="{{ route('business_documents.show', [$business_document->id]) }}"/>
                     <x-form.delete-button action="{{ route('business_documents.destroy', [$business_document->id]) }}" />
                 </td>
             </tr>

@@ -12,7 +12,7 @@ class BusinessDocumentRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -22,12 +22,11 @@ class BusinessDocumentRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'document.document_type_id' => ['required', Rule::exists('document_type', 'id')],
             'document.contractor_id' => ['required', Rule::exists('contractor', 'id')],
-            'document.number' => 'required',
             'document.issue_date' => 'required',
             'document.sale_date' => 'required',
             'document.payment_date' => 'required',

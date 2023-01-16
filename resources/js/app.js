@@ -1,63 +1,85 @@
 import './bootstrap';
 import Alpine from "alpinejs";
 
-// const productSelect = document.getElementById("product-select");
-//
-// function getDataFromApi(event) {
-//     axios.get(`/products/${event.target.value}/json`)
-//         .then((res) => {
-//             document.getElementById("net-price-input").value = res.data.price;
-//             document.getElementById("vat-rate-select").value = res.data.vat_rate_id;
-//         })
-// }
-//
-// productSelect.onchange = getDataFromApi;
 
-function documentData() {
-    return {
-        positions: 1,
-    }
-}
-
-function documentPositionData() {
-    return {
-        //component state
+function businessDocumentData(initialState) {
+    const initialPositionState = {
         price: '',
         vatRate: '',
         unit: '',
         quantity: 0,
         vatValue: 0,
         grossValue: 0,
+        product: '',
+        sumNetValue: 0,
+        sumVatValue: 0,
+        sumGrossValue: 0
+    };
 
-        getDataFromApi(event) {
-            axios.get(`/products/${event.target.value}/json`)
-                .then((res) => {
-                    this.price = res.data.price;
-                    this.vatRate = res.data.vat_rate_id;
-                    this.unit = res.data.unit;
+    return {
+        positions: {},
 
-                })
-        },
-
-        calculateTaxes() {
-            if (this.price === '' || this.vatRate === '' || this.quantity === 0) {
+        init() {
+            if (!initialState) {
+                this.positions[0] = {...initialPositionState};
                 return;
             }
 
-            const vatRateValue = JSON.parse(VAT_RATES).filter(vatRate => vatRate.id === parseInt(this.vatRate))[0].rate;
-            const netValue= parseFloat(this.price) * parseFloat(this.quantity);
+            initialState.forEach(state => {
+                this.positions[state.id] = {
+                    price: state.net_price,
+                    vatRate: state.vat_rate_id,
+                    vatValue: state.vat_value,
+                    unit: state.unit_id,
+                    quantity: state.quantity,
+                    grossValue: state.gross_value,
+                    product: state.product_id,
+                }
+            })
+        },
 
-            this.vatValue = (netValue * (vatRateValue) / 100);
-            this.vatValue = parseFloat(this.vatValue).toFixed(2);
-            console.log(typeof this.vatValue);
-            this.grossValue = netValue + parseFloat(this.vatValue);
-        }
-    }
+        createNewPosition() {
+            const nextKey = Math.max(...Object.keys(this.positions)) + 1;
+            this.positions[nextKey] = {
+                ...initialPositionState
+            };
+        },
+
+        removePosition(index) {
+            delete this.positions[index];
+        },
+
+        getProductDataFromApi(event, index) {
+            axios.get(`/products/${event.target.value}/json`)
+                .then((res) => {
+                    this.positions[index].price = res.data.price;
+                    this.positions[index].vatRate = res.data.vat_rate_id;
+                    this.positions[index].unit = res.data.unit_id;
+                })
+        },
+
+        calculateTaxes(index) {
+            if (this.positions[index].price === '' || this.positions[index].vatRate === '' || this.positions[index].quantity === 0) {
+                return;
+            }
+
+            const vatRateValue = JSON.parse(VAT_RATES).filter(vatRate => vatRate.id === parseInt(this.positions[index].vatRate))[0].rate;
+            const netValue = parseFloat(this.positions[index].price) * parseFloat(this.positions[index].quantity);
+
+            this.positions[index].vatValue = (netValue * (vatRateValue) / 100);
+            this.positions[index].vatValue = parseFloat(this.positions[index].vatValue).toFixed(2);
+            this.positions[index].grossValue = netValue + parseFloat(this.positions[index].vatValue);
+
+            this.sumNetValue += netValue;
+            this.sumVatValue += this.positions[index].vatValue;
+            this.sumGrossValue += this.positions[index].grossValue;
+
+            console.log(this.grossValue);
+
+
+        },
+    };
 }
 
-
-Alpine.data('documentData', documentData);
-
-Alpine.data('documentPositionData', documentPositionData);
-
+Alpine.data('businessDocumentData', businessDocumentData);
 Alpine.start()

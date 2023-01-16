@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,11 +23,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $net_value
  * @property int $vat
  * @property string $gross_value
+ * @property string $vat_value
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Contractor $contractor
  * @property-read \App\Models\DocumentType|null $documentType
- * @property-read \App\Models\DocumentPosition[]|null $position
+ * @property-read Collection<DocumentPosition>|null $positions
  * @property-read \App\Models\VatRate|null $vatRate
  * @method static Builder|BusinessDocument newModelQuery()
  * @method static Builder|BusinessDocument newQuery()
