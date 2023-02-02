@@ -47,7 +47,7 @@ class Contractor extends Model
 
     public function scopeFilter(Builder $query, array $filters): void
     {
-        $query->when($filters['searchContractor'] ?? false, fn(Builder $query, $search) =>
+        $query->when($filters['search'] ?? false, fn(Builder $query, $search) =>
             $query->where(fn(Builder $query) =>
                 $query->where('name', 'like', '%' . request('searchContractor') . '%')
                     ->orWhere('nip', 'like', '%' . request('searchContractor') . '%'))

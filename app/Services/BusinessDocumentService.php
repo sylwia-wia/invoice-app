@@ -35,10 +35,15 @@ class BusinessDocumentService
         $month = $dateValue->format('m');
         $search = "$year/$month";
 
-        $currentNumber = BusinessDocument::where('number', 'like', "%$search%" )->get()->last()->number;
-        $nextDocNumber = (int) explode('/', $currentNumber)[2] + 1;
-        $businessDocument->number = sprintf("%d/%d/%02d", $year, $month, $nextDocNumber);
+        $currentNumber = BusinessDocument::where('number', 'like', "%$search%" )->get()->last()->number ?? null;
 
+        if ($currentNumber === null) {
+            $nextDocNumber = 1;
+        } else {
+            $nextDocNumber = (int) explode('/', $currentNumber)[2] + 1;
+        }
+
+        $businessDocument->number = sprintf("%d/%02d/%02d", $year, $month, $nextDocNumber);
 
         $this->calculateValues($businessDocument, $positions);
 
@@ -116,6 +121,13 @@ class BusinessDocumentService
             $document->vat_value += $positionVatValue;
             $document->gross_value += $positionNetValue + $positionVatValue;
         }
+    }
+
+    public function calculateSettlement(array $attributes, $id)
+    {
+        $businessDocument = BusinessDocument::findOrFail($id);
+        dd($businessDocument);
+
     }
 
 }

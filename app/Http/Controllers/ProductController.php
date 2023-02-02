@@ -21,8 +21,7 @@ class ProductController extends Controller
     public function index()
     {
         return view('products', [
-            'products' => Product::orderBy('name')->filter(
-                request(['searchProduct']))
+            'products' => Product::where('name', 'like', '%' . \request('search') . '%')
                 ->paginate(20)->withQueryString()
         ]);
     }
@@ -45,7 +44,7 @@ class ProductController extends Controller
 
         Product::create($attributes);
 
-        return redirect('/products')->with('success', 'Poprawnie dodano nowy produkt!');
+        return redirect()->route('products.index')->with('success', 'Poprawnie dodano nowy produkt!');
     }
 
     /**
@@ -57,7 +56,7 @@ class ProductController extends Controller
         $vatRates = VatRate::all();
         $units = Unit::all();
 
-        return view('products/edit', [
+        return view('products.edit', [
             'product' => $product,
             'vatRates' => $vatRates,
             'units' => $units
@@ -87,7 +86,7 @@ class ProductController extends Controller
 
         $product->update($attributes);
 
-        return redirect('/products')->with('success', 'Poprawnie edytowano produkt!');
+        return redirect()->route('products.index')->with('success', 'Poprawnie edytowano produkt!');
     }
 
     protected function validationRules(): array
@@ -109,7 +108,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
 
-        return redirect('/products')->with('succcess', 'Poprawnie usunięto produkt!');
+        return redirect()->route('products.index')->with('succcess', 'Poprawnie usunięto produkt!');
     }
 }
 

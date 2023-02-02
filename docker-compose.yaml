@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  invoice_db:
+    image: "mariadb:latest"
+    container_name: invoice-db
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_DATABASE: invoice
+      MARIADB_ROOT_PASSWORD: root
+

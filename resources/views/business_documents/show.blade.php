@@ -70,13 +70,25 @@
         <tr>
             <th>Wartość netto</th>
             <th>Wartość VAT</th>
+            @foreach($business_document->getVatValuesDividedByRates() as $vatRate => $vatRateValue)
+                <th>Stawka VAT {{ $vatRate }}%</th>
+            @endforeach
             <th>Wartość brutto</th>
         </tr>
+
         <tr>
+
             <td>{{ $business_document->net_value }}</td>
             <td>{{ $business_document->vat_value }}</td>
+
+        @foreach($business_document->getVatValuesDividedByRates() as $vatRate => $vatRateValue)
+                <td class="total">{{ $vatRateValue }}</td>
+        @endforeach
+
             <td>{{ $business_document->gross_value }}</td>
+
         </tr>
+
     </table>
 
     <a href="{{ route('business_documents.edit', [$business_document->id]) }}" class="col-auto text-decoration-none" >

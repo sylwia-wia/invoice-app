@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <title>Fakturynka</title>
 
+    <link rel="stylesheet" href="../css/app.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
@@ -15,6 +16,22 @@
     <meta name="theme-color" content="#712cf9">
 </head>
 <body>
+
+<div class="modal fade"
+     id="mainModal"
+     tabindex="-1"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
 
 <header>
     <div class="navbar navbar-dark navbar-expand-lg bg-dark shadow-sm">
@@ -37,7 +54,7 @@
                         <a href="/contractors" class="nav-link">Kontrahenci</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/products" class="nav-link">Produkty/usługi</a>
+                        <a href="{{ route('products.index') }}" class="nav-link">Produkty/usługi</a>
                     </li>
                 </ul>
                 @auth

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreContractorRequest;
 use App\Models\Contractor;
+use App\Models\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,10 +15,12 @@ class ContractorController extends Controller
 {
     public function index(): View
     {
+        $query = Contractor::query();
         return view('contractors', [
-            'contractors' => Contractor::orderBy('name')->filter(
-                request(['searchContractor'])
-            )
+            'contractors' => $query
+                    ->where('name', 'like', '%' . \request('search') . '%')
+                    ->orWhere('nip', 'like', '%' . \request('search') . '%')
+                    ->orWhere('locality', 'like', '%' . \request('search') . '%')
                 ->paginate(20)->withQueryString()
         ]);
 
@@ -54,7 +57,7 @@ class ContractorController extends Controller
         $attributes = $request->validate($validationRules);
         $contractor->update($attributes);
 
-        return redirect('/contractors')->with('success', 'Poprawnie edytowano kontrahenta!');
+        return redirect()->route('contractors.index')->with('success', 'Poprawnie edytowano kontrahenta!');
 
     }
 
@@ -75,7 +78,7 @@ class ContractorController extends Controller
         $contractor = Contractor::findOrFail($id);
         $contractor->delete();
 
-        return redirect('/contractors')->with('success', 'Poprawnie usunięto kontrahenta!');
+        return redirect()->route('contractors.index')->with('success', 'Poprawnie usunięto kontrahenta!');
     }
 
 

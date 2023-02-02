@@ -33,6 +33,7 @@ return new class extends Migration
                 $table->decimal('net_value', 15, 2);
                 $table->decimal('vat_value', 11, 2);
                 $table->decimal('gross_value', 15, 2);
+                $table->decimal('gross_settled', 15, 2);
 
                 $table->timestamps();
             });

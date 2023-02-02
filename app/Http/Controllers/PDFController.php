@@ -13,13 +13,7 @@ class PDFController extends Controller
     {
         $businessDocument = BusinessDocument::findOrFail($id);
 
-
-        $data = [
-            'title' => 'fakturynka',
-            'business_document' => $businessDocument
-
-        ];
-        $pdf = PDF::setOptions(['defaultFont' => 'dejavu serif'])->loadView('documentPDF', compact('businessDocument'));
+        $pdf = PDF::loadView('documentPDF', compact('businessDocument'));
         return $pdf->stream('faktura.pdf');
 //    return view('documentPDF', ['businessDocument' => $businessDocument]);
     }

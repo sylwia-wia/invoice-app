@@ -19,11 +19,11 @@ return new class extends Migration
 
                 $table->foreignId('vat_rate_id')
                     ->constrained('vat_rate')
-                    ->onDelete('CASCADE');
+                    ->onDelete('RESTRICT');
 
                 $table->foreignId('unit_id')
                     ->constrained('unit')
-                    ->onDelete('SET NULL');
+                    ->onDelete('RESTRICT');
 
                 $table->string('name', 255)->unique();
                 $table->decimal('price', 11, 2);

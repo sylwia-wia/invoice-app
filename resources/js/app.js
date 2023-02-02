@@ -1,6 +1,24 @@
 import './bootstrap';
+import "bootstrap-icons/font/bootstrap-icons.css";
 import Alpine from "alpinejs";
 
+const modalInvokers = document.getElementsByClassName("show-modal");
+for (const modalInvoker of modalInvokers) {
+    modalInvoker.addEventListener("click", showMainModal);
+}
+
+function showMainModal(e) {
+    const modalElement = document.getElementById("mainModal");
+    const modal = new bootstrap.Modal(modalElement);
+    const modalContent = modalElement.getElementsByClassName("modal-body")[0];
+    axios.get(this.dataset.url)
+        .then (res => {
+            modalContent.innerHTML = res.data;
+            modal.show();
+        });
+
+    // modal.show();
+}
 
 function businessDocumentData(initialState) {
     const initialPositionState = {
@@ -74,12 +92,25 @@ function businessDocumentData(initialState) {
             this.sumVatValue += this.positions[index].vatValue;
             this.sumGrossValue += this.positions[index].grossValue;
 
-            console.log(this.grossValue);
+
 
 
         },
+
     };
 }
 
+function settlementData(grossValue, toSettled, grossSettled) {
+    return {
+        toSettlement: toSettled,
+        grossValue: grossValue,
+        grossSettlement: grossSettled ?? 0,
+        calculate() {
+            this.toSettlement = (this.grossValue - this.grossSettlement - grossSettled).toFixed(2);
+        }
+    }
+}
+
 Alpine.data('businessDocumentData', businessDocumentData);
+Alpine.data('settlementData', settlementData);
 Alpine.start()

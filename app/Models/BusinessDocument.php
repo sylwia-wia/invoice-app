@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $net_value
  * @property int $vat
  * @property string $gross_value
+ * @property string $gross_settled
  * @property string $vat_value
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -54,6 +55,20 @@ class BusinessDocument extends Model
     protected $table = 'business_document';
     protected $guarded = [];
 
+    public function scopeFilter(Builder $query, array $filters): void
+    {
+        $query->when($filters['search'] ?? false, fn(Builder $query, $search) =>
+        $query->where(fn(Builder $query) =>
+        $query->where('number', 'like', '%' . request('search') . '%')
+            ->orWhereHas(/**
+             * @param Builder $query
+             * @return void
+             */ 'contractor', function (Builder $query)  {
+                $query->where('name', 'like', '%' . request('search') . '%');
+            } )
+    ))->paginate(20)->withQueryString();
+    }
+
     public function documentType(): BelongsTo
     {
         return $this->belongsTo(DocumentType::class, 'document_type_id');
@@ -72,5 +87,30 @@ class BusinessDocument extends Model
     public function positions(): HasMany
     {
         return $this->hasMany(DocumentPosition::class);
+    }
+
+    public function getToSettled(): float
+    {
+        return $this->gross_value - $this->gross_settled;
+    }
+
+    /**
+     * @return array<int, float>
+     */
+    public function getVatValuesDividedByRates(): array
+    {
+        $vatValues = [];
+
+        foreach ($this->positions as $position) {
+            $rate = $position->vatRate->rate;
+
+            if (isset($vatValues[$rate]) === false) {
+                $vatValues[$rate] = 0;
+            }
+
+            $vatValues[$rate] += $position->vat_value;
+        }
+
+        return $vatValues;
     }
 }

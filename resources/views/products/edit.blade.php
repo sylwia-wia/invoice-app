@@ -1,8 +1,11 @@
 <x-layout>
     <x-form.error />
 
-    <form method="POST" action="{{ route('product.update', [$product->id]) }}" class="mt-10 ms-4">
+    <form method="POST" action="{{ route('products.update', [$product->id]) }}" class="mt-10 ms-4">
+        @method('put')
         @csrf
+
+
         <h1>Edytuj dane</h1>
         <div class="form-floating mb-3">
             <input name="name" type="text" class="form-control" id="floatingInput" value="{{ $product->name }}">

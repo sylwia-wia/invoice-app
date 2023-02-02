@@ -1,9 +1,8 @@
-
-    <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pl">
 <head>
-    <meta charset="utf-8">
-    <title>Example 1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Business Document</title>
     <link rel="stylesheet" href="style.css" media="all" />
 </head>
 <style>
@@ -13,11 +12,6 @@
         clear: both;
     }
 
-    a {
-        color: #5D6975;
-        text-decoration: underline;
-    }
-
     body {
         position: relative;
         width: 18cm;
@@ -25,9 +19,8 @@
         margin: 0 auto;
         color: #001028;
         background: #FFFFFF;
-        font-family: Arial, sans-serif;
+        font-family: DejaVu Sans, serif;
         font-size: 12px;
-        font-family: Arial;
     }
 
     header {
@@ -46,17 +39,17 @@
         margin: 0 0 20px 0;
     }
 
-    #project {
+    #seller {
         float: left;
     }
 
-    #company {
+    #buyer {
         float: right;
         text-align: left;
     }
 
-    #project div,
-    #company div {
+    #seller div,
+    #buyer div {
         white-space: nowrap;
     }
 
@@ -90,15 +83,14 @@
 
     table td {
         padding: 20px;
-        text-align: right;
+        text-align: center;
     }
 
     table td.desc {
         vertical-align: top;
     }
 
-    table td.unit,
-    table td.qty,
+
     table td.total {
         font-size: 1.2em;
     }
@@ -122,7 +114,7 @@
         <div><b>DATA PŁATNOŚCI</b> {{ $businessDocument->payment_date }}</div>
     </div>
     <h1>INVOICE {{ $businessDocument->number }}</h1>
-    <div id="company" class="clearfix">
+    <div id="buyer" class="clearfix">
         <div><b>NABYWCA</b> </div>
         <div>{{ $businessDocument->contractor->company_name }}</div>
         <div>{{ $businessDocument->contractor->street }}<br/>
@@ -130,7 +122,7 @@
         </div>
 
     </div>
-    <div id="project">
+    <div id="seller">
         <div><b>SPRZEDAWCA</b> </div>
         <div>mk-home.pl</div>
         <div>Ciołkowskiego 22<br /> 14-254 Białystok</div>
@@ -169,16 +161,27 @@
             <td colspan="4">WARTOSĆ NETTO</td>
             <td class="total">{{ $businessDocument->net_value }}</td>
         </tr>
-        <tr>
-            <td colspan="4">WARTOŚĆ VAT</td>
-            <td class="total">{{ $businessDocument->vat_value }}</td>
-        </tr>
+
+            @foreach($businessDocument->getVatValuesDividedByRates() as $vatRate => $vatRateValue)
+                <tr>
+                    <td colspan="4">Stawka VAT {{ $vatRate }}%</td>
+                    <td class="total">{{ $vatRateValue }}</td>
+                </tr>
+            @endforeach
+
+            <tr>
+                <td colspan="4">WARTOŚĆ VAT RAZEM</td>
+                <td class="total">{{ $businessDocument->vat_value }}</td>
+            </tr>
+
         <tr>
             <td colspan="4" class="grand total">WARTOŚĆ BRUTTO</td>
             <td class="grand total">{{ $businessDocument->gross_value }}</td>
         </tr>
         </tbody>
     </table>
+
+
 </main>
 
 

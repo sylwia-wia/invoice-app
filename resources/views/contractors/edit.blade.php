@@ -1,7 +1,8 @@
 <x-layout>
     <x-form.error />
 
-    <form method="POST" action="{{ route('contractor.update', [$contractor->id]) }}" class="mt-10 ms-4">
+    <form method="POST" action="{{ route('contractors.update', [$contractor->id]) }}" class="mt-10 ms-4">
+        @method('put')
         @csrf
         <h1>Edytuj kontrahenta</h1>
         <div class="form-floating mb-3">

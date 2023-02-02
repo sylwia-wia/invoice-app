@@ -5,14 +5,14 @@
     </div>
 
     <div class="float-start mt-4 mb-4">
-        <form method="GET" action="{{ route('product.create') }}">
+        <form method="GET" action="{{ route('products.create') }}">
             <button class="btn btn-dark">Dodaj nowy produkt/usługę</button>
         </form>
     </div>
 
     <div class="float-end mb-4">
         <form method="GET" action="#">
-            <input type="text" name="searchProduct" placeholder="Znajdź produkt" class="form-control" value="{{ request('searchProduct') }}" />
+            <input type="text" name="search" placeholder="Znajdź produkt" class="form-control" value="{{ request('search') }}" />
         </form>
     </div>
 
@@ -42,8 +42,8 @@
                 <td>{{ $product->vatRate->rate }}%</td>
                 <td>{{ $product->price }}</td>
                 <td class="row g-2">
-                    <x-form.edit-button action="{{ route('product.edit', [$product->id]) }}"/>
-                    <x-form.delete-button action="{{ route('product.destroy', [$product->id]) }}"/>
+                    <x-form.edit-button action="{{ route('products.edit', [$product->id]) }}"/>
+                    <x-form.delete-button action="{{ route('products.destroy', [$product->id]) }}"/>
                 </td>
             </tr>
         @endforeach

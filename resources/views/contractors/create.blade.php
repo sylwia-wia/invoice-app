@@ -1,7 +1,7 @@
 <x-layout>
     <x-form.error />
 
-    <form method="POST" action="{{ route('contractor.create') }}" class="mt-10 ms-4">
+    <form method="POST" action="{{ route('contractors.store') }}" class="mt-10 ms-4">
         @csrf
         <h1>Dodaj nowego kontrahenta</h1>
         <x-form.input name="name">Nazwa skrócona</x-form.input>

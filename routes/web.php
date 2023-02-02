@@ -25,30 +25,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('products', [ProductController::class, 'index']);
-Route::get('products/create', [ProductController::class, 'create'])
-    ->name('product.create');
-Route::post('products/create', [ProductController::class, 'store']);
-Route::get('products/{product:id}/edit', [ProductController::class, 'edit'])
-    ->name('product.edit');
-Route::post('products/{product:id}', [ProductController::class, 'update'])
-    ->name('product.update');
-Route::post('products/{product:id}/destroy', [ProductController::class, 'destroy'])
-    ->name('product.destroy');
+Route::resource('products', ProductController::class);
+
 Route::get('products/{product:id}/json', [ProductController::class, 'detailJson'])
     ->name('product.detail.json');
 
-
-Route::get('contractors', [ContractorController::class, 'index']);
-Route::get('contractors/create', [ContractorController::class, 'create'])
-    ->name('contractor.create');
-Route::post('contractors/create', [ContractorController::class, 'store']);
-Route::get('contractors/{contractor:id}/edit', [ContractorController::class, 'edit'])
-    ->name('contractor.edit');
-Route::post('contractors/{contractor:id}', [ContractorController::class, 'update'])
-    ->name('contractor.update');
-Route::post('contractors/{contractor:id}/destroy', [ContractorController::class, 'destroy'])
-    ->name('contractor.destroy');
+Route::resource('contractors', ContractorController::class);
+//Route::get('contractors', [ContractorController::class, 'index']);
+//Route::get('contractors/create', [ContractorController::class, 'create'])
+//    ->name('contractor.create');
+//Route::post('contractors/create', [ContractorController::class, 'store']);
+//Route::get('contractors/{contractor:id}/edit', [ContractorController::class, 'edit'])
+//    ->name('contractor.edit');
+//Route::post('contractors/{contractor:id}', [ContractorController::class, 'update'])
+//    ->name('contractor.update');
+//Route::post('contractors/{contractor:id}/destroy', [ContractorController::class, 'destroy'])
+//    ->name('contractor.destroy');
 
 
 Route::get('business_documents', [BusinessDocumentController::class, 'index'])
@@ -56,7 +48,7 @@ Route::get('business_documents', [BusinessDocumentController::class, 'index'])
 Route::get('business_documents/create', [BusinessDocumentController::class, 'create'])
     ->name('business_documents.create');
 Route::post('business_documents/create', [BusinessDocumentController::class, 'store'])
-    ->name('business_documents.create');
+    ->name('business_document.create');
 Route::get('business_documents/{business_document:id}/show', [BusinessDocumentController::class, 'show'])
     ->name('business_documents.show');
 Route::get('business_documents/{business_document:id}/edit', [BusinessDocumentController::class, 'edit'])
@@ -65,6 +57,11 @@ Route::post('business_documents/{business_document:id}', [BusinessDocumentContro
     ->name('business_documents.update');
 Route::post('business_documents/{business_document:id}/destroy', [BusinessDocumentController::class, 'destroy'])
     ->name('business_documents.destroy');
+
+Route::get('business_documents/{business_document:id}/settle', [BusinessDocumentController::class, 'settlementForm'])
+    ->name('business_documents.settlement_form');
+Route::post('business_documents/{business_document:id}/settle', [BusinessDocumentController::class, 'settlement'])
+    ->name('business_documents.settlement');
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest')
     ->name('register.create');

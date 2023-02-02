@@ -1,8 +1,11 @@
 <x-layout>
     <x-form.error />
 
-    <form method="POST" action="{{ route('product.create') }}" class="mt-10 ms-4">
+    <form method="POST" action="{{ route('products.store') }}" class="mt-10 ms-4">
         @csrf
+        <div class="text-end mb-4">
+            <a class="btn btn-outline-primary float-end " href="{{ route('products.index') }}"><- Wróć</a>
+        </div>
         <h1>Dodaj nowy produkt/ usługę</h1>
         <x-form.input name="name">Nazwa</x-form.input>
 

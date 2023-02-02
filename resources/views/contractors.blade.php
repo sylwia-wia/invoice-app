@@ -2,14 +2,14 @@
     <h1>Kontrahenci</h1>
     {{-- class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2" --}}
     <div class="float-start mb-4">
-        <form method="GET" action="{{ route('contractor.create') }}">
+        <form method="GET" action="{{ route('contractors.create') }}">
             <button class="btn btn-dark">Dodaj nowego kontrahenta</button>
         </form>
     </div>
 
     <div class="float-end mb-4">
         <form method="GET" action="#">
-            <input type="text" name="searchContractor" placeholder="Znajdź kontrahenta" class="form-control" value="{{ request('searchContractor') }}" />
+            <input type="text" name="search" placeholder="Znajdź kontrahenta" class="form-control" value="{{ request('search') }}" />
         </form>
     </div>
 
@@ -41,8 +41,8 @@
                 <td>{{ $contractor->post_code }}</td>
                 <td>{{ $contractor->locality }}</td>
                 <td class="row g-2">
-                    <x-form.edit-button action="{{ route('contractor.edit', [$contractor->id]) }}" />
-                    <x-form.delete-button action="{{ route('contractor.destroy', [$contractor->id]) }}" />
+                    <x-form.edit-button action="{{ route('contractors.edit', [$contractor->id]) }}" />
+                    <x-form.delete-button action="{{ route('contractors.destroy', [$contractor->id]) }}" />
                 </td>
             </tr>
 
