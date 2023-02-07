@@ -113,4 +113,9 @@ class BusinessDocument extends Model
 
         return $vatValues;
     }
+
+    public function isSettled(): bool
+    {
+        return $this->gross_value === $this->gross_settled;
+    }
 }

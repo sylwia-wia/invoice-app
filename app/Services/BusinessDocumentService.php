@@ -123,11 +123,6 @@ class BusinessDocumentService
         }
     }
 
-    public function calculateSettlement(array $attributes, $id)
-    {
-        $businessDocument = BusinessDocument::findOrFail($id);
-        dd($businessDocument);
 
-    }
 
 }

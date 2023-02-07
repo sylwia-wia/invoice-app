@@ -13,19 +13,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use JetBrains\PhpStorm\NoReturn;
 
 class BusinessDocumentController extends Controller
 {
     public function index(Request $request): View
     {
-       // $businessDocuments = BusinessDocument::with('contractor', 'documentType')->get();
-
         return view('business_documents',
             [
                 'business_documents' => BusinessDocument::orderBy('number')->filter(request(['search']))
                 ->paginate(20)->withQueryString()
             ]);
-
     }
 
 
@@ -68,33 +66,31 @@ class BusinessDocumentController extends Controller
     }
 
 
+    /**
+     * @param BusinessDocumentRequest $request
+     * @param BusinessDocumentService $service
+     * @param $id
+     * @return RedirectResponse
+     */
     public function update(BusinessDocumentRequest $request, BusinessDocumentService $service, $id): RedirectResponse
     {
+
         $attributes = $request->validated();
 
-        try {
-            $service->update($attributes, $id);
-        } catch (BusinessDocumentException $e) {
-            return redirect()->route('business_documents.edit')->with('error', $e->getMessage());
-        }
 
-        return redirect('/business_documents')->with('success', 'Poprawnie edytowano dokument');
+//        try {
+            $service->update($attributes, $id);
+//        } catch (BusinessDocumentException $e) {
+//            return redirect()->route('business_documents.edit')->with('error', $e->getMessage());
+//        }
+
+        return redirect()->route('business_documents.index')->with('success', 'Poprawnie edytowano dokument');
     }
 
     public function destroy()
     {
 
     }
-
-//    public function settle($id): View
-//    {
-//        $businessDocument = BusinessDocument::findOrFail($id);
-//
-//        return view('business_documents/settlement', [
-//            'business_document' => $businessDocument,
-//        ]);
-//
-//    }
 
     public function settlementForm($id) {
         $businessDocument = BusinessDocument::findOrFail($id);
@@ -108,7 +104,6 @@ class BusinessDocumentController extends Controller
         $businessDocument = BusinessDocument::findOrFail($id);
         $attributes = $request->validated();
 
-
         if($businessDocument->gross_value >= $businessDocument->gross_settled){
             $businessDocument->gross_settled += $attributes['gross_settled'];
             $businessDocument->save();
@@ -118,11 +113,8 @@ class BusinessDocumentController extends Controller
         }
 
         return redirect()->route('business_documents.index')->with('success', 'Poprawnie rozliczono płatność!');
-
-
-
-        //zapisac do bazy to co przyszlo z formularza i przekierowac na strone glowna faktur
     }
+
 
     protected function prepareAdditionalData(): array
     {

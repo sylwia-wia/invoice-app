@@ -11,18 +11,18 @@ function showMainModal(e) {
     const modalElement = document.getElementById("mainModal");
     const modal = new bootstrap.Modal(modalElement);
     const modalContent = modalElement.getElementsByClassName("modal-body")[0];
+
     axios.get(this.dataset.url)
         .then (res => {
-            modalContent.innerHTML = res.data;
             modal.show();
+            modalContent.innerHTML = res.data;
         });
 
-    // modal.show();
 }
 
 function businessDocumentData(initialState) {
     const initialPositionState = {
-        price: '',
+        price: 0,
         vatRate: '',
         unit: '',
         quantity: 0,
@@ -86,14 +86,11 @@ function businessDocumentData(initialState) {
 
             this.positions[index].vatValue = (netValue * (vatRateValue) / 100);
             this.positions[index].vatValue = parseFloat(this.positions[index].vatValue).toFixed(2);
-            this.positions[index].grossValue = netValue + parseFloat(this.positions[index].vatValue);
+            this.positions[index].grossValue = (netValue + parseFloat(this.positions[index].vatValue)).toFixed(2);
 
             this.sumNetValue += netValue;
             this.sumVatValue += this.positions[index].vatValue;
             this.sumGrossValue += this.positions[index].grossValue;
-
-
-
 
         },
 
@@ -102,12 +99,9 @@ function businessDocumentData(initialState) {
 
 function settlementData(grossValue, toSettled, grossSettled) {
     return {
-        toSettlement: toSettled,
+        toSettled: toSettled,
         grossValue: grossValue,
-        grossSettlement: grossSettled ?? 0,
-        calculate() {
-            this.toSettlement = (this.grossValue - this.grossSettlement - grossSettled).toFixed(2);
-        }
+        grossSettled: grossSettled ?? 0,
     }
 }
 

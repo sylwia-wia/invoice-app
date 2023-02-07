@@ -5,7 +5,6 @@
         @method('put')
         @csrf
 
-
         <h1>Edytuj dane</h1>
         <div class="form-floating mb-3">
             <input name="name" type="text" class="form-control" id="floatingInput" value="{{ $product->name }}">

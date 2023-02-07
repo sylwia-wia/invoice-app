@@ -25,38 +25,35 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('products', ProductController::class);
+Route::resources([
+    'products' => ProductController::class,
+    'contractors' => ContractorController::class,
+    'business_documents' => BusinessDocumentController::class
+]);
+
+//Route::resource('products', ProductController::class);
 
 Route::get('products/{product:id}/json', [ProductController::class, 'detailJson'])
     ->name('product.detail.json');
 
-Route::resource('contractors', ContractorController::class);
-//Route::get('contractors', [ContractorController::class, 'index']);
-//Route::get('contractors/create', [ContractorController::class, 'create'])
-//    ->name('contractor.create');
-//Route::post('contractors/create', [ContractorController::class, 'store']);
-//Route::get('contractors/{contractor:id}/edit', [ContractorController::class, 'edit'])
-//    ->name('contractor.edit');
-//Route::post('contractors/{contractor:id}', [ContractorController::class, 'update'])
-//    ->name('contractor.update');
-//Route::post('contractors/{contractor:id}/destroy', [ContractorController::class, 'destroy'])
-//    ->name('contractor.destroy');
+//Route::resource('contractors', ContractorController::class);
 
-
-Route::get('business_documents', [BusinessDocumentController::class, 'index'])
-    ->name('business_documents.index');
-Route::get('business_documents/create', [BusinessDocumentController::class, 'create'])
-    ->name('business_documents.create');
-Route::post('business_documents/create', [BusinessDocumentController::class, 'store'])
-    ->name('business_document.create');
-Route::get('business_documents/{business_document:id}/show', [BusinessDocumentController::class, 'show'])
-    ->name('business_documents.show');
-Route::get('business_documents/{business_document:id}/edit', [BusinessDocumentController::class, 'edit'])
-    ->name('business_documents.edit');
-Route::post('business_documents/{business_document:id}', [BusinessDocumentController::class, 'update'])
-    ->name('business_documents.update');
-Route::post('business_documents/{business_document:id}/destroy', [BusinessDocumentController::class, 'destroy'])
-    ->name('business_documents.destroy');
+//Route::resource('business_documents', BusinessDocumentController::class);
+//
+//Route::get('business_documents', [BusinessDocumentController::class, 'index'])
+//    ->name('business_documents.index');
+//Route::get('business_documents/create', [BusinessDocumentController::class, 'create'])
+//    ->name('business_documents.create');
+//Route::post('business_documents/create', [BusinessDocumentController::class, 'store'])
+//    ->name('business_document.create');
+//Route::get('business_documents/{business_document:id}/show', [BusinessDocumentController::class, 'show'])
+//    ->name('business_documents.show');
+//Route::get('business_documents/{business_document:id}/edit', [BusinessDocumentController::class, 'edit'])
+//    ->name('business_documents.edit');
+//Route::post('business_documents/{business_document:id}', [BusinessDocumentController::class, 'update'])
+//    ->name('business_documents.update');
+//Route::post('business_documents/{business_document:id}/destroy', [BusinessDocumentController::class, 'destroy'])
+//    ->name('business_documents.destroy');
 
 Route::get('business_documents/{business_document:id}/settle', [BusinessDocumentController::class, 'settlementForm'])
     ->name('business_documents.settlement_form');

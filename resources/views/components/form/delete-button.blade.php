@@ -1,6 +1,6 @@
 @props(['action'])
 
-<form method="POST" action="{{ $action }}" class="col-auto">
+<form method="POST" action="{{ $action }}" class="col-auto d-inline">
     @method('delete')
     @csrf
     <button class="btn btn-white">

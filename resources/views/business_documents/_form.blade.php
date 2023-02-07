@@ -3,11 +3,16 @@
 <form x-data="businessDocumentData(@js($businessDocument->positions ?? null))" method="POST" action="{{ $formAction }}"
       class="mt-10 ms-4">
 
+    @isset($businessDocument)
+        @method('PUT')
+    @endisset
+
     @csrf
+
 
     <div class="form-floating mb-3">
         <select class="form-control" id="selectDocumentType" name="document[document_type_id]" required focus>
-            <option value="" disabled @if (old('document_type_id') == null) selected @endif>Proszę o wybranie typu
+            <option value="" disabled @if (old('document_type_id') == null) selected @endif>Proszę wybrać typu
                 dokumentu
             </option>
 
@@ -18,8 +23,7 @@
         </select>
         <label for="floatingInput">Typ dokumentu</label>
     </div>
-
-    <div class="form-floating mb-3">
+    <div class="input-group mb-3">
         <select class="form-control" name="document[contractor_id]" required focus>
             <option value="" disabled @if (old('contractor_id') == null) selected @endif>Proszę wybrać kontrahenta
             </option>
@@ -29,7 +33,11 @@
                     value="{{$contractor->id}}" {{ (old('contractor_id', $businessDocument->contractor_id ?? '') == $contractor->id ? 'selected' : '') }} > {{ $contractor->name }}</option>
             @endforeach
         </select>
-        <label>Kontrahent</label>
+        <div class="input-group-append">
+            <x-form.show-modal-button
+                button="btn btn-primary"
+                action="{{ route('contractors.create') }}"> Dodaj </x-form.show-modal-button>
+        </div>
     </div>
 
     <div class="form-floating mb-3">
@@ -68,7 +76,7 @@
         </template>
     </table>
     <x-form.button>Zapisz</x-form.button>
-    <button class="btn btn-info float-end me-2" @click="createNewPosition(); $event.preventDefault();">Dodaj</button>
+    <button class="btn btn-primary float-end me-2" @click="createNewPosition(); $event.preventDefault();">Dodaj</button>
 </form>
 
 <script>

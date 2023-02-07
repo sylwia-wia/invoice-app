@@ -16,21 +16,17 @@
         <tr>
             <th>Kwota pozostała do zapłaty</th>
             <td>
-                <x-form.input name="gross_settled" type="number" step="0.01" id="gross_settled"
-                              xModel="toSettlement" xChange="calculate"
-                ></x-form.input>
+                <input
+                    name="gross_settled"
+                    type="number"
+                    step="0.01"
+                    id="gross_settled"
+
+                    class="form-control align-middle"
+                    value="{{ $business_document->getToSettled() ?? 0 }}"
+                >
             </td>
         </tr>
-
-{{--                <tr>--}}
-{{--                    <th>Kwota rozliczenia</th>--}}
-{{--                    <td>--}}
-{{--                        <x-form.input name="gross_settled" type="number" step="0.01" id="settlement"--}}
-{{--                                      xModel="grossSettlement" xChange="calculate"--}}
-{{--                        ></x-form.input>--}}
-
-{{--                    </td>--}}
-{{--                </tr>--}}
 
 
     </table>
