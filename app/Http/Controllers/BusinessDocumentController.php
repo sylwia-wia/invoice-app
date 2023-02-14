@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\BusinessDocumentException;
 use App\Http\Requests\BusinessDocumentRequest;
 use App\Http\Requests\SettlementRequest;
+use App\Mail\SendInvoicePdf;
 use App\Models\{BusinessDocument, Contractor, DocumentPosition, DocumentType, Product, Unit, VatRate};
 use App\Services\BusinessDocumentService;
 use Illuminate\Contracts\View\View;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use JetBrains\PhpStorm\NoReturn;
+use Mail;
 
 class BusinessDocumentController extends Controller
 {
@@ -131,5 +133,19 @@ class BusinessDocumentController extends Controller
             'vatRates' => $vatRates,
             'units' => $units,
         ];
+    }
+
+    public function sendMail(BusinessDocument $businessDocument, Request $request):RedirectResponse
+    {
+        Mail::to($businessDocument->contractor->email)->send(new SendInvoicePdf(BusinessDocument::findOrFail($businessDocument->id)));
+        return redirect()->route('business_documents.index')->with('success', 'Mail został wysłany!');
+    }
+
+    public function confirmMail($id):View
+    {
+        $businessDocument = BusinessDocument::findOrFail($id);
+        return view('emails/invoice/confirm', [
+            'business_document' => $businessDocument,
+        ]);
     }
 }

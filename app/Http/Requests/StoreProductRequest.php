@@ -2,9 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ * @property mixed $product
+ */
 class StoreProductRequest extends FormRequest
 {
 
@@ -25,8 +29,10 @@ class StoreProductRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->product->id ?? "";
+
         return [
-            'name' => 'required|max:100|unique:product,name',
+            'name' => "required|max:100|unique:product,name,{$id}",
             'unit_id' => 'required|max:30|exists:unit,id',
             'vat_rate_id' => 'required|integer|exists:vat_rate,id',
             'price' => 'required|numeric|gt:0|lt:99999999'

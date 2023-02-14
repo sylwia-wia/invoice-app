@@ -40,7 +40,6 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $attributes = $request->validated();
-//        $attributes = request()->validate($this->validationRules());
 
         Product::create($attributes);
 
@@ -75,29 +74,17 @@ class ProductController extends Controller
      * @return RedirectResponse|Redirector
      * @throws \Exception
      */
-    public function update(Request $request, $id)
+    public function update(StoreProductRequest $request, Product $product)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::findOrFail($product->id);
 
-        $validationRules = $this->validationRules();
-        $validationRules['name'] .= ',' . $product->id;
+        $validationRules = $request->validated();
 
-        $attributes = $request->validate($validationRules);
-
-        $product->update($attributes);
+        $product->update($validationRules);
 
         return redirect()->route('products.index')->with('success', 'Poprawnie edytowano produkt!');
     }
 
-    protected function validationRules(): array
-    {
-        return [
-            'name' => 'required|max:100|unique:product,name',
-            'unit_id' => 'required|integer|nullable|exists:unit,id',
-            'vat_rate_id' => 'required|integer|exists:vat_rate,id',
-            'price' => 'required|numeric|gt:0|lt:99999999'
-        ];
-    }
 
     /**
      * @param $id

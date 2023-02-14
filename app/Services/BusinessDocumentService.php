@@ -9,6 +9,8 @@ use Throwable;
 
 class BusinessDocumentService
 {
+
+
     /**
      * @throws BusinessDocumentException
      * @throws Throwable
@@ -49,14 +51,14 @@ class BusinessDocumentService
 
         \DB::beginTransaction();
 
-       try {
+        try {
             $businessDocument->save();
             $businessDocument->positions()->saveMany($positions);
         } catch (\Exception) {
             \DB::rollBack();
 
             throw new BusinessDocumentException('Wystąpił błąd zapisu faktury do systemu.');
-      }
+        }
 
         \DB::commit();
 
@@ -121,6 +123,11 @@ class BusinessDocumentService
             $document->vat_value += $positionVatValue;
             $document->gross_value += $positionNetValue + $positionVatValue;
         }
+    }
+
+    public function checkDelete(BusinessDocument $document): bool
+    {
+        return $document->gross_settled === "0.00";
     }
 
 

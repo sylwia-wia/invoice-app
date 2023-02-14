@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('street', 255);
             $table->string('locality', 50);
             $table->string('post_code', 20);
+            $table->string('email', 100);
             $table->timestamps();
         });
     }

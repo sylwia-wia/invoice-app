@@ -19,9 +19,9 @@ class ContractorController extends Controller
         $query = Contractor::query();
         return view('contractors', [
             'contractors' => $query
-                    ->where('name', 'like', '%' . \request('search') . '%')
-                    ->orWhere('nip', 'like', '%' . \request('search') . '%')
-                    ->orWhere('locality', 'like', '%' . \request('search') . '%')
+                ->where('name', 'like', '%' . \request('search') . '%')
+                ->orWhere('nip', 'like', '%' . \request('search') . '%')
+                ->orWhere('locality', 'like', '%' . \request('search') . '%')
                 ->paginate(20)->withQueryString()
         ]);
 
@@ -61,28 +61,14 @@ class ContractorController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(StoreContractorRequest $request, Contractor $contractor): RedirectResponse
     {
-        $contractor = Contractor::findOrFail($id);
-        $validationRules = $this->validationRules();
-        $validationRules['nip'] .= ',' . $contractor->id;
-        $attributes = $request->validate($validationRules);
-        $contractor->update($attributes);
+        $contractor = Contractor::findOrFail($contractor->id);
+        $validationRules = $request->validated();
+        $contractor->update($validationRules);
 
         return redirect()->route('contractors.index')->with('success', 'Poprawnie edytowano kontrahenta!');
 
-    }
-
-    protected function validationRules(): array
-    {
-        return [
-            'name' => 'required|max:255',
-            'company_name' => 'required|max:255',
-            'nip' => 'required|max:15|unique:contractor,nip',
-            'street' => 'required|max:255',
-            'locality' => 'required|max:255',
-            'post_code' => 'required:max:255'
-        ];
     }
 
     public function destroy($id)
@@ -92,6 +78,5 @@ class ContractorController extends Controller
 
         return redirect()->route('contractors.index')->with('success', 'Poprawnie usunięto kontrahenta!');
     }
-
 
 }

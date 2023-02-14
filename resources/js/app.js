@@ -1,6 +1,7 @@
 import './bootstrap';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Alpine from "alpinejs";
+import {Modal} from "bootstrap";
 
 const modalInvokers = document.getElementsByClassName("show-modal");
 for (const modalInvoker of modalInvokers) {
@@ -9,11 +10,12 @@ for (const modalInvoker of modalInvokers) {
 
 function showMainModal(e) {
     const modalElement = document.getElementById("mainModal");
-    const modal = new bootstrap.Modal(modalElement);
+    const modal = new Modal(modalElement);
     const modalContent = modalElement.getElementsByClassName("modal-body")[0];
 
     axios.get(this.dataset.url)
         .then (res => {
+            console.log('test');
             modal.show();
             modalContent.innerHTML = res.data;
         });

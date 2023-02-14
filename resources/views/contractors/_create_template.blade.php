@@ -13,6 +13,7 @@
     <x-form.input name="street">Ulica</x-form.input>
     <x-form.input name="locality">Miejscowość</x-form.input>
     <x-form.input name="post_code">Kod pocztowy</x-form.input>
+    <x-form.input name="email">Email</x-form.input>
 
     <x-form.button>Zapisz</x-form.button>
 </form>

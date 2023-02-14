@@ -81,9 +81,9 @@
             <td>{{ $business_document->net_value }}</td>
             <td>{{ $business_document->vat_value }}</td>
 
-        @foreach($business_document->getVatValuesDividedByRates() as $vatRate => $vatRateValue)
+            @foreach($business_document->getVatValuesDividedByRates() as $vatRate => $vatRateValue)
                 <td class="total">{{ $vatRateValue }}</td>
-        @endforeach
+            @endforeach
 
             <td>{{ $business_document->gross_value }}</td>
 
@@ -102,6 +102,11 @@
             Eksportuj do PDF
         </button>
     </a>
+
+
+    <x-form.show-modal-button
+        button="btn btn-primary"
+        action="{{ route('email.confirm', [$business_document->id]) }}"> Wyślij </x-form.show-modal-button>
 
 </x-layout>
 
