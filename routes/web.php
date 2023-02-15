@@ -24,7 +24,7 @@ use App\Models\Product;
 |
 */
 
-Route::get('/', [ChartController::class, 'index']);
+Route::get('/', [ChartController::class, 'index'])->name('chart.index');
 
 Route::resources([
     'products' => ProductController::class,
