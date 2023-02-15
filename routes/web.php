@@ -24,7 +24,8 @@ use App\Models\Product;
 |
 */
 
-Route::get('/', [ChartController::class, 'index']);
+Route::get('/', [ChartController::class, 'index'])
+    ->name('chart.index');
 
 Route::resources([
     'products' => ProductController::class,
@@ -59,3 +60,7 @@ Route::post('business_documents/{business_document:id}/send_mail', [BusinessDocu
 Route::get('business_documents/{business_document:id}/send', [BusinessDocumentController::class, 'confirmMail'])->name('email.confirm');
 
 Route::get('business_documents/{business_document:id}/delete', [BusinessDocumentController::class, 'confirmDelete'])->name('business_documents.confirm.delete');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
